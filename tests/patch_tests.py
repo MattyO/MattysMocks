@@ -3,6 +3,7 @@ from datetime import datetime
 import patch
 from patch import PatchObject
 from object import MockObject, MethodMock
+from mock_these.parent_class import ParentClass
 
 class TestPatch(TestCase):
     def test_patch_should_not_effect_method_before(self):
@@ -27,7 +28,6 @@ class TestPatch(TestCase):
     @patch.object('datetime.datetime')
     def test_patched_method_should_have_default_methods_of_mocked_class(self, patch):
         from datetime import datetime
-        print 'calling dir directly on mock class'
         print dir(datetime)
         self.assertTrue('now' in  dir(datetime))
 
@@ -46,4 +46,11 @@ class TestPatch(TestCase):
     def test_patch_should_not_effect_method_after(self):
         from datetime import datetime
         self.assertIsInstance(datetime.now(), datetime)
+
+    @patch.object('mock_these.parent_class.DumbClass', methods={"a_method":"test return"})
+    def test_patch_with_parent_has_a_relationship(self, dumb_patch):
+        pc = ParentClass()
+        #print globals()
+        #print pc.dumb.a_method
+        self.assertEqual(pc.get_method(), "test return")
 

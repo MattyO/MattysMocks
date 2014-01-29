@@ -1,23 +1,7 @@
 from unittest import TestCase
 from object import mock, MockObject, MethodMock, AttributeMock
 from datetime import datetime
-
-class DumbClass():
-    a_attribute = 'test attribute'
-
-    def a_method(self):
-        pass
-
-    @property
-    def a_property(self):
-        pass
-
-    @classmethod
-    def class_method(self):
-        pass
-    @staticmethod
-    def static_method():
-        pass
+from mock_these.dumb_class import DumbClass
 
 class TestMock(TestCase):
     def setUp(self):
