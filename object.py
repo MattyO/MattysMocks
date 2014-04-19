@@ -32,7 +32,7 @@ class MockObject(object):
         self.attribute_calls = []
 
     def __getattr__(self,name):
-        warnings.warn("creating mock for a method that doesnt exsist", RuntimeWarning)
+        warnings.warn('creating mock for method "'+name+'" that doesnt exsist', RuntimeWarning)
         return MethodMock()
 
     @classmethod

@@ -1,4 +1,9 @@
+import mock_these.dumb_class
 from mock_these.dumb_class import DumbClass
+import warnings
+import types
+#warnings.warn(str([ name for name, type in locals().items() if  isinstance(type, types.ModuleType) ]))
+#warnings.warn(str(id(locals())))
 class ParentClass():
     def __init__(self):
         self.dumb = DumbClass()

@@ -3,9 +3,28 @@ from datetime import datetime
 import patch
 from patch import PatchObject
 from object import MockObject, MethodMock
+from mock_these.dumb_class import DumbClass
 from mock_these.parent_class import ParentClass
+import mock_these.bunch_of_functions as bof
+import warnings
+import types
+#warnings.warn(str([ name for name, type in locals().items() if  isinstance(type, types.ModuleType) ]))
+#warnings.warn(str(id(locals())))
 
-class TestPatch(TestCase):
+class TestPatchFunction(TestCase):
+    @patch.function("mock_these.bunch_of_functions.a_function")
+    def test_patch_should_replace_function_with_methoond_mock(self, function_mock):
+        self.assertIsInstance(bof.a_function, MethodMock)
+
+    @patch.function("mock_these.bunch_of_functions.a_function")
+    def test_patch_function_returns_non_by_default(self, function_mock):
+        self.assertEqual(bof.a_function(), None)
+
+    @patch.function("mock_these.bunch_of_functions.a_function", returns="new_value")
+    def test_patch_should_replace_function_with_return_value(self, function_mock):
+        self.assertEqual(bof.a_function(), "new_value")
+
+class TestPatchObject(TestCase):
     def test_patch_should_not_effect_method_before(self):
         from datetime import datetime
         self.assertIsInstance(datetime.now(), datetime)
