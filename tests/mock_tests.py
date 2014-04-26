@@ -3,6 +3,23 @@ from object import mock, MockObject, MethodMock, AttributeMock
 from datetime import datetime
 from mock_these.dumb_class import DumbClass
 
+class TestMockObject(TestClass):
+
+    def test_mock_object_should_throw_a_wargning_for_unknow_method(self):
+        mock_object = MockObject()
+
+        mock_object.somemethod()
+
+        self.assertTrue(False)
+
+    def test_mock_object_should_throw_a_wargning_for_unknow_method_only_for_first_time_called(self):
+        mock_object = MockObject()
+
+        mock_object.somemethod()
+        mock_object.somemethod()
+
+        self.assertTrue(False)
+
 class TestMock(TestCase):
     def setUp(self):
         self.MockClass = mock(template=DumbClass)

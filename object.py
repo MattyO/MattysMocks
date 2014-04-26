@@ -33,7 +33,9 @@ class MockObject(object):
 
     def __getattr__(self,name):
         warnings.warn('creating mock for method "'+name+'" that doesnt exsist', RuntimeWarning)
-        return MethodMock()
+        mock_created = MethodMock()
+        setattr(self, name,  mock_created )
+        return mock_created
 
     @classmethod
     def methods(self):
@@ -60,8 +62,8 @@ class MethodMock():
         self.returns = returns
         self.calls = []
 
-    def __call__(self, *kargs, **kwargs):
-        self.calls.append(type('MockCall', (object,), {'args':kargs, "kwargs": kwargs}))
+    def __call__(self, *args, **kwargs):
+        self.calls.append(type('MockCall', (object,), {'args':args, "kwargs": kwargs}))
         return self.returns
 
     @classmethod
