@@ -98,7 +98,7 @@ The mock object will throw warnings for methods that aren't found on patched obj
         
 ###patch.function
 
-    
+TODO: doc for patch.function decorator
 
 ##tempting
    
