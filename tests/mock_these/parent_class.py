@@ -1,5 +1,5 @@
-import mock_these.dumb_class
-from mock_these.dumb_class import DumbClass
+#import mock_these.dumb_class
+from tests.mock_these.dumb_class import DumbClass
 import warnings
 import types
 #warnings.warn(str([ name for name, type in locals().items() if  isinstance(type, types.ModuleType) ]))
