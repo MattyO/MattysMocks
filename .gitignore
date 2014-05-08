@@ -2,3 +2,4 @@ env
 *.pyc
 build/*
 dist/*
+MANIFEST
