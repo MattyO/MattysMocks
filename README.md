@@ -7,13 +7,13 @@ It is suggested that the main way to use this library is though the patch decora
 
 ##MockObject 
 
-    MockObject(method=[], attributes=[])
+    MockObject()
 
 __methods__
     
 * attribute_calls - returns a list of all gets and sets of attributes all
 * all_calls - returns a list of all method and attribute calls
-* Creates mocks for methods that have not yet been defined, but will return a warning for methods not defined
+* Creates mocks for methods that have not yet been defined, but will throw a warning for methods not defined
 * ask a method directly about calls made to it
 
 ###MockMethod
@@ -33,8 +33,6 @@ __methods__
 * all_calls - all class method, instance method, and attribute calls
 * all_method_calls - a list of all instance method calls
 * all_attribute_calls
-
-
 
 
 The PatchObject class creates a class like object.  While MockObject creates a replacement for object for instance level interactions.  PatchObject helps keep track of Class level interactions like class_methods and instances.   
@@ -98,7 +96,14 @@ The mock object will throw warnings for methods that aren't found on patched obj
         
 ###patch.function
 
-TODO: doc for patch.function decorator
+    ...
+    import tests.mock_these.bunch_of_functions as bof
+    ...
+    
+    class TestPatchFunction(TestCase):
+        @patch.function("tests.mock_these.bunch_of_functions.a_function", returns="new_value")
+        def test_patch_should_replace_function_with_return_value(self, function_mock):
+            self.assertEqual(bof.a_function(), "new_value")
 
 ##templating
    
