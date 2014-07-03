@@ -1,8 +1,8 @@
 from unittest import TestCase
-from patch import PatchObject
-from object import mock, MockObject, MethodMock, AttributeMock
+from mattys_mocks.patch import PatchObject
+from mattys_mocks.object import mock, MockObject, MethodMock, AttributeMock
 from datetime import datetime
-from mock_these.dumb_class import DumbClass
+from mattys_mocks.tests.mock_these.dumb_class import DumbClass
 
 
 class TestPatchObject(TestCase):

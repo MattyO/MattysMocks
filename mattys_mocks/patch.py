@@ -83,10 +83,11 @@ def function(path,*args, **kwargs ):
     function_mock = MethodMock(returns=returns)
 
     def wrapper(fn):
-        def test_wrapped(self):
+        def test_wrapped(*args):
             setattr(module, original_function_name, function_mock)
             try:
-                output = fn(self, function_mock)
+                args += (function_mock,)
+                output = fn(*args)
             finally:
                 pass
                 setattr(module, original_function_name, original_function)
@@ -104,10 +105,11 @@ def object(path, attributes=[], methods={}):
     patch = PatchObject(template=original_class, methods=methods, attributes=attributes)
 
     def wrapper(fn):
-        def test_wrapped(self):
+        def test_wrapped(*args):
             setattr(module, original_class_name, patch)
             try:
-                output = fn(self, patch)
+                args += (patch,)
+                output = fn(*args)
             finally:
                 setattr(module, original_class_name, original_class)
             return output

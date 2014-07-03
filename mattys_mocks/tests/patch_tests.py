@@ -1,26 +1,27 @@
 from unittest import TestCase
 from datetime import datetime
-import patch
-from patch import PatchObject
-from object import MockObject, MethodMock
-from tests.mock_these.dumb_class import DumbClass
-from tests.mock_these.parent_class import ParentClass
-import tests.mock_these.bunch_of_functions as bof
+import mattys_mocks.patch as patch
+from mattys_mocks.patch import PatchObject
+from mattys_mocks.object import MockObject, MethodMock
+from mattys_mocks.tests.mock_these.dumb_class import DumbClass
+from mattys_mocks.tests.mock_these.parent_class import ParentClass
+import mattys_mocks.tests.mock_these.bunch_of_functions as bof
+
 import warnings
 import types
 #warnings.warn(str([ name for name, type in locals().items() if  isinstance(type, types.ModuleType) ]))
 #warnings.warn(str(id(locals())))
 
 class TestPatchFunction(TestCase):
-    @patch.function("tests.mock_these.bunch_of_functions.a_function")
+    @patch.function("mattys_mocks.tests.mock_these.bunch_of_functions.a_function")
     def test_patch_should_replace_function_with_methoond_mock(self, function_mock):
         self.assertIsInstance(bof.a_function, MethodMock)
 
-    @patch.function("tests.mock_these.bunch_of_functions.a_function")
+    @patch.function("mattys_mocks.tests.mock_these.bunch_of_functions.a_function")
     def test_patch_function_returns_non_by_default(self, function_mock):
         self.assertEqual(bof.a_function(), None)
 
-    @patch.function("tests.mock_these.bunch_of_functions.a_function", returns="new_value")
+    @patch.function("mattys_mocks.tests.mock_these.bunch_of_functions.a_function", returns="new_value")
     def test_patch_should_replace_function_with_return_value(self, function_mock):
         self.assertEqual(bof.a_function(), "new_value")
 
@@ -66,7 +67,17 @@ class TestPatchObject(TestCase):
         from datetime import datetime
         self.assertIsInstance(datetime.now(), datetime)
 
-    @patch.object('tests.mock_these.parent_class.DumbClass', methods={"a_method":"test return"})
+    @patch.object('datetime.datetime')
+    @patch.object('mattys_mocks.tests.mock_these.parent_class.DumbClass', methods={"a_method":"test return"})
+    def test_patches_are_stackable(self, dumb_patch, datetime_patch,):
+        pass
+
+    @patch.object('datetime.datetime')
+    @patch.function("mattys_mocks.tests.mock_these.bunch_of_functions.a_function")
+    def test_object_and_function_patches_are_stackable(self, dumb_patch, datetime_patch,):
+        pass
+
+    @patch.object('mattys_mocks.tests.mock_these.parent_class.DumbClass', methods={"a_method":"test return"})
     def test_patch_with_parent_has_a_relationship(self, dumb_patch):
         pc = ParentClass()
         #print globals()
