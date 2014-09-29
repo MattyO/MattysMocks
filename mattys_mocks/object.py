@@ -9,9 +9,8 @@ def mock(*kargs, **kwargs):
     if 'template' in kwargs.keys():
         template = kwargs['template']
         items = [ method for method in dir(template) if not method.startswith('__')]
-        method_types = [types.MethodType, types.FunctionType, types.BuiltinMethodType]
 
-        methods = filter(lambda thing:type(getattr(template, thing)) in method_types , items)
+        methods = filter(lambda thing: callable(getattr(template, thing))  , items)
         attributes = list(set(items).difference(methods))
         things = { method_name:MethodMock() for method_name in methods }
         things.update({attribute_name:AttributeMock(attribute_name) for attribute_name in attributes if not attribute_name.startswith('__')})
